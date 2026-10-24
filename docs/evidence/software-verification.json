@@ -1,0 +1,40 @@
+{
+  "verifiedAt": "2026-10-24T13:52:35.013982+00:00",
+  "packageLockSha256": "e8955d053b20492d244b391891513c13e405dd9e0de89f69ab7b6c02b8636315",
+  "typecheck": "passed",
+  "lint": "passed",
+  "coreTests": {
+    "passed": 79,
+    "failed": 0
+  },
+  "renderedInteractionTests": {
+    "passed": 45,
+    "failed": 0,
+    "suites": 6,
+    "nativeBoundaries": "mocked"
+  },
+  "bundleExports": [
+    "ios",
+    "android"
+  ],
+  "nativeProjectGeneration": [
+    "ios",
+    "android"
+  ],
+  "privacyManifestMatchesConfig": true,
+  "iOSNativeCompilation": "not run",
+  "physicalDeviceAcceptance": "not run",
+  "securityGate": "blocked; see npm audit evidence and IOS_RELEASE.md",
+  "browserVisualQA": {
+    "actualUI": true,
+    "nativeAdapters": "synthetic mocks",
+    "frames": [
+      "390x568",
+      "320x568",
+      "390x420"
+    ],
+    "nativeValidation": false,
+    "report": "docs/BROWSER_QA.md"
+  },
+  "latestIOSBundleExport": "passed after invitation-footer fix"
+}

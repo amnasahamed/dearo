@@ -1,0 +1,549 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@expo/cli": {
+      "name": "@expo/cli",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@expo/code-signing-certificates",
+        "@expo/log-box",
+        "@expo/metro-config",
+        "@expo/router-server",
+        "expo",
+        "expo-router",
+        "node-forge",
+        "zod"
+      ],
+      "effects": [
+        "expo"
+      ],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/@expo/cli"
+      ],
+      "fixAvailable": false
+    },
+    "@expo/code-signing-certificates": {
+      "name": "@expo/code-signing-certificates",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "node-forge"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/@expo/code-signing-certificates"
+      ],
+      "fixAvailable": true
+    },
+    "@expo/devtools": {
+      "name": "@expo/devtools",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/@expo/devtools"
+      ],
+      "fixAvailable": true
+    },
+    "@expo/dom-webview": {
+      "name": "@expo/dom-webview",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/@expo/dom-webview"
+      ],
+      "fixAvailable": true
+    },
+    "@expo/log-box": {
+      "name": "@expo/log-box",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@expo/dom-webview",
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/@expo/log-box"
+      ],
+      "fixAvailable": true
+    },
+    "@expo/metro-config": {
+      "name": "@expo/metro-config",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/@expo/metro-config"
+      ],
+      "fixAvailable": true
+    },
+    "@expo/metro-runtime": {
+      "name": "@expo/metro-runtime",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@expo/log-box",
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-router/node_modules/@expo/metro-runtime"
+      ],
+      "fixAvailable": true
+    },
+    "@expo/router-server": {
+      "name": "@expo/router-server",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo",
+        "expo-constants",
+        "expo-font",
+        "expo-router"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/@expo/cli/node_modules/@expo/router-server"
+      ],
+      "fixAvailable": true
+    },
+    "babel-preset-expo": {
+      "name": "babel-preset-expo",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/babel-preset-expo"
+      ],
+      "fixAvailable": true
+    },
+    "expo": {
+      "name": "expo",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@expo/cli",
+        "@expo/devtools",
+        "@expo/dom-webview",
+        "@expo/log-box",
+        "@expo/metro-config",
+        "babel-preset-expo",
+        "expo-asset",
+        "expo-constants",
+        "expo-file-system",
+        "expo-font",
+        "expo-keep-awake"
+      ],
+      "effects": [
+        "@expo/devtools",
+        "@expo/dom-webview",
+        "@expo/log-box",
+        "@expo/metro-config",
+        "@expo/metro-runtime",
+        "@expo/router-server",
+        "babel-preset-expo",
+        "expo-asset",
+        "expo-clipboard",
+        "expo-constants",
+        "expo-contacts",
+        "expo-crypto",
+        "expo-document-picker",
+        "expo-file-system",
+        "expo-font",
+        "expo-glass-effect",
+        "expo-haptics",
+        "expo-keep-awake",
+        "expo-linking",
+        "expo-router",
+        "expo-sharing",
+        "expo-splash-screen",
+        "expo-sqlite",
+        "expo-status-bar",
+        "expo-store-review",
+        "expo-system-ui"
+      ],
+      "range": "",
+      "nodes": [
+        "node_modules/expo"
+      ],
+      "fixAvailable": false
+    },
+    "expo-asset": {
+      "name": "expo-asset",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo",
+        "expo-constants"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/expo-asset"
+      ],
+      "fixAvailable": true
+    },
+    "expo-clipboard": {
+      "name": "expo-clipboard",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-clipboard"
+      ],
+      "fixAvailable": false
+    },
+    "expo-constants": {
+      "name": "expo-constants",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-constants"
+      ],
+      "fixAvailable": false
+    },
+    "expo-contacts": {
+      "name": "expo-contacts",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-contacts"
+      ],
+      "fixAvailable": false
+    },
+    "expo-crypto": {
+      "name": "expo-crypto",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-crypto"
+      ],
+      "fixAvailable": false
+    },
+    "expo-document-picker": {
+      "name": "expo-document-picker",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-document-picker"
+      ],
+      "fixAvailable": false
+    },
+    "expo-file-system": {
+      "name": "expo-file-system",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-file-system"
+      ],
+      "fixAvailable": false
+    },
+    "expo-font": {
+      "name": "expo-font",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/expo-font"
+      ],
+      "fixAvailable": true
+    },
+    "expo-glass-effect": {
+      "name": "expo-glass-effect",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-glass-effect"
+      ],
+      "fixAvailable": true
+    },
+    "expo-haptics": {
+      "name": "expo-haptics",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-haptics"
+      ],
+      "fixAvailable": false
+    },
+    "expo-keep-awake": {
+      "name": "expo-keep-awake",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo/node_modules/expo-keep-awake"
+      ],
+      "fixAvailable": true
+    },
+    "expo-linking": {
+      "name": "expo-linking",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo",
+        "expo-constants"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-linking"
+      ],
+      "fixAvailable": false
+    },
+    "expo-router": {
+      "name": "expo-router",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@expo/log-box",
+        "@expo/metro-runtime",
+        "expo",
+        "expo-constants",
+        "expo-glass-effect",
+        "expo-linking",
+        "expo-status-bar"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-router"
+      ],
+      "fixAvailable": false
+    },
+    "expo-sharing": {
+      "name": "expo-sharing",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-sharing"
+      ],
+      "fixAvailable": false
+    },
+    "expo-splash-screen": {
+      "name": "expo-splash-screen",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-splash-screen"
+      ],
+      "fixAvailable": false
+    },
+    "expo-sqlite": {
+      "name": "expo-sqlite",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-sqlite"
+      ],
+      "fixAvailable": false
+    },
+    "expo-status-bar": {
+      "name": "expo-status-bar",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-status-bar"
+      ],
+      "fixAvailable": false
+    },
+    "expo-store-review": {
+      "name": "expo-store-review",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-store-review"
+      ],
+      "fixAvailable": false
+    },
+    "expo-system-ui": {
+      "name": "expo-system-ui",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "expo"
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/expo-system-ui"
+      ],
+      "fixAvailable": false
+    },
+    "node-forge": {
+      "name": "node-forge",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1240912,
+          "name": "node-forge",
+          "dependency": "node-forge",
+          "title": "node-forge RSA PKCS#1 v1.5 signature verification accepts extra nested DigestAlgorithm elements",
+          "url": "https://github.com/advisories/GHSA-86w9-cpqp-85rv",
+          "severity": "high",
+          "cwe": [
+            "CWE-347"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+          },
+          "range": "<=1.4.0"
+        }
+      ],
+      "effects": [
+        "@expo/cli",
+        "@expo/code-signing-certificates"
+      ],
+      "range": "",
+      "nodes": [
+        "node_modules/node-forge"
+      ],
+      "fixAvailable": false
+    },
+    "zod": {
+      "name": "zod",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1243066,
+          "name": "zod",
+          "dependency": "zod",
+          "title": "Zod can exhaust memory while validating oversized constrained collections",
+          "url": "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<4.6.6"
+        }
+      ],
+      "effects": [],
+      "range": "",
+      "nodes": [
+        "node_modules/zod"
+      ],
+      "fixAvailable": true
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 31,
+      "critical": 0,
+      "total": 31
+    },
+    "dependencies": {
+      "prod": 946,
+      "dev": 378,
+      "optional": 91,
+      "peer": 49,
+      "peerOptional": 0,
+      "total": 1407
+    }
+  }
+}

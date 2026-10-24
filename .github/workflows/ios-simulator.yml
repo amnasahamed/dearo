@@ -1,0 +1,161 @@
+name: iOS simulator build and startup screenshots
+
+# Source preparation only. Manual execution needs approval for private CI minutes.
+on:
+  workflow_dispatch:
+    inputs:
+      approved_ci_minutes:
+        description: 'I have approval to use private-repository macOS CI minutes for this run'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dearo-ios-simulator-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  simulator:
+    if: ${{ inputs.approved_ci_minutes == true }}
+    runs-on: macos-15
+    timeout-minutes: 60
+    env:
+      CI: '1'
+      EXPO_NO_TELEMETRY: '1'
+      COCOAPODS_DISABLE_STATS: 'true'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Verify installed Apple tools
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          # Use the newest stable Xcode actually installed, not a guessed path/version.
+          python3 - <<'PY'
+          import glob, os, pathlib, plistlib, re
+          choices = []
+          for app in glob.glob('/Applications/Xcode*.app'):
+              if 'beta' in app.lower():
+                  continue
+              info = pathlib.Path(app, 'Contents/Info.plist')
+              if not info.exists():
+                  continue
+              version = str(plistlib.loads(info.read_bytes()).get('CFBundleShortVersionString', ''))
+              if re.fullmatch(r'\d+(?:\.\d+)*', version):
+                  choices.append((tuple(map(int, version.split('.'))), app))
+          if not choices:
+              raise SystemExit('No installed stable Xcode found. Native build gate remains unverified.')
+          version, app = max(choices)
+          if version < (16, 1):
+              raise SystemExit('Installed Xcode is below the current React Native minimum (16.1).')
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write(f'DEVELOPER_DIR={app}/Contents/Developer\n')
+          pathlib.Path('artifacts/xcode-selection.txt').write_text(f'{app}\n{version}\n')
+          PY
+
+      - name: Capture tool versions and simulator inventory
+        run: |
+          set -euo pipefail
+          { sw_vers; xcodebuild -version; xcrun --sdk iphonesimulator --show-sdk-version; node --version; npm --version; pod --version; } | tee artifacts/tool-versions.txt
+          xcrun --find simctl
+          xcrun simctl list devices available --json > artifacts/simulators.json
+          xcrun simctl list runtimes --json > artifacts/runtimes.json
+          python3 - <<'PY'
+          import json, os, pathlib, re
+          data = json.loads(pathlib.Path('artifacts/simulators.json').read_text())
+          runtimes = json.loads(pathlib.Path('artifacts/runtimes.json').read_text())['runtimes']
+          supported = {r['identifier']: r for r in runtimes if r.get('isAvailable') and r.get('platform') == 'iOS'}
+          # Some simctl versions omit platform; identifier still explicitly identifies iOS.
+          supported.update({r['identifier']: r for r in runtimes if r.get('isAvailable') and '.iOS-' in r['identifier']})
+          candidates = []
+          for runtime, devices in data['devices'].items():
+              if runtime not in supported:
+                  continue
+              version = tuple(int(n) for n in re.findall(r'\d+', supported[runtime].get('version', '0')))
+              for device in devices:
+                  if device.get('isAvailable') and device.get('name', '').startswith('iPhone'):
+                      candidates.append((version, device['name'], device['udid'], runtime))
+          if not candidates:
+              raise SystemExit('No installed available iPhone simulator. Do not claim a native check passed.')
+          version, name, udid, runtime = max(candidates)
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write(f'SIMULATOR_UDID={udid}\n')
+          pathlib.Path('artifacts/selected-simulator.json').write_text(json.dumps({'name': name, 'udid': udid, 'runtime': runtime, 'version': version}, indent=2))
+          PY
+
+      - name: Install locked dependencies and generate native iOS project
+        run: |
+          set -euo pipefail
+          npm ci 2>&1 | tee artifacts/npm-ci.log
+          npx expo prebuild --platform ios --no-install 2>&1 | tee artifacts/prebuild.log
+          test -f ios/Dearo.xcodeproj/project.pbxproj
+          (cd ios && pod install) 2>&1 | tee artifacts/pod-install.log
+          test -d ios/Dearo.xcworkspace
+          xcodebuild -list -workspace ios/Dearo.xcworkspace > artifacts/xcode-targets.txt
+
+      - name: Build unsigned Release simulator app
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -workspace ios/Dearo.xcworkspace \
+            -scheme Dearo \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
+            -derivedDataPath "$RUNNER_TEMP/dearo-derived" \
+            -resultBundlePath "$GITHUB_WORKSPACE/artifacts/build.xcresult" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+            build 2>&1 | tee artifacts/xcodebuild.log
+          test -d "$RUNNER_TEMP/dearo-derived/Build/Products/Release-iphonesimulator/Dearo.app"
+
+      - name: Boot, install, launch and capture startup
+        run: |
+          set -euo pipefail
+          if ! xcrun simctl boot "$SIMULATOR_UDID"; then
+            # A selected device already booted is fine; every other error must fail.
+            xcrun simctl list devices --json | python3 -c 'import json,os,sys; d=json.load(sys.stdin); assert any(x["udid"]==os.environ["SIMULATOR_UDID"] and x["state"]=="Booted" for ds in d["devices"].values() for x in ds)'
+          fi
+          xcrun simctl bootstatus "$SIMULATOR_UDID" -b
+          APP="$RUNNER_TEMP/dearo-derived/Build/Products/Release-iphonesimulator/Dearo.app"
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$APP/Info.plist")
+          printf '%s\n' "$BUNDLE_ID" > artifacts/bundle-id.txt
+          xcrun simctl install "$SIMULATOR_UDID" "$APP"
+          xcrun simctl launch --terminate-running-process "$SIMULATOR_UDID" "$BUNDLE_ID" | tee artifacts/launch.txt
+          # These are timed startup captures, not assertions of UI readiness or correctness.
+          sleep 5
+          xcrun simctl io "$SIMULATOR_UDID" screenshot artifacts/startup-5s.png
+          sleep 10
+          xcrun simctl io "$SIMULATOR_UDID" screenshot artifacts/startup-15s.png
+          echo 'Unsigned simulator build/launch commands completed. Inspect screenshots and logs; this does not verify all screens, physical-device behavior, or message delivery.' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Capture available simulator logs
+        if: ${{ always() && env.SIMULATOR_UDID != '' }}
+        continue-on-error: true
+        run: |
+          xcrun simctl spawn "$SIMULATOR_UDID" log show --last 5m --style compact --predicate 'process == "Dearo"' > artifacts/simulator-app.log 2>&1
+
+      - name: Retain screenshots and diagnostic logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-simulator-${{ github.run_id }}
+          path: artifacts/
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: Stop simulator
+        if: ${{ always() && env.SIMULATOR_UDID != '' }}
+        continue-on-error: true
+        run: xcrun simctl shutdown "$SIMULATOR_UDID"

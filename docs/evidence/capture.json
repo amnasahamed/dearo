@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-10-24T13:15:58.615564+00:00",
+  "registry": "https://registry.npmjs.org",
+  "localNpmVersion": "11.9.0",
+  "canonicalFullCapturedAt": "2026-10-24T13:14:21Z",
+  "canonicalProductionCapturedAt": "2026-10-24T13:14:34Z",
+  "lockfileSha256": "e8955d053b20492d244b391891513c13e405dd9e0de89f69ab7b6c02b8636315",
+  "files": {
+    "README.md": "c5f5b94cf788df61a5ae04f9b6ecbb6a96654932bf877761a269a3fa1e5cfa10",
+    "dependency-chain.txt": "fcf1bf0a045eede14b3be10489fea76d93bde47f426c1d628a30bfa83422d48f",
+    "installed-dependency-metadata.json": "e3b0b523b20f8de7c784f13f78889319c0af1b72a3d441fd12a6ed81a8657caf",
+    "node-forge-registry.json": "59724ecad475a7e6a865fad54db7c93ea1d6f3a4463eb117e737fdebcb64c573",
+    "npm-audit-earlier-1313.json": "adffa5e7419b91f12d57f6e747c9c0ab6d59c61e6f7a8553140e320cce4e8065",
+    "npm-audit-fresh-cache.json": "adffa5e7419b91f12d57f6e747c9c0ab6d59c61e6f7a8553140e320cce4e8065",
+    "npm-audit-local-explicit-registry.json": "adffa5e7419b91f12d57f6e747c9c0ab6d59c61e6f7a8553140e320cce4e8065",
+    "npm-audit-production-earlier-1313.json": "adffa5e7419b91f12d57f6e747c9c0ab6d59c61e6f7a8553140e320cce4e8065",
+    "npm-audit-production-fresh-cache.json": "adffa5e7419b91f12d57f6e747c9c0ab6d59c61e6f7a8553140e320cce4e8065",
+    "npm-audit-production-local-explicit-registry.json": "adffa5e7419b91f12d57f6e747c9c0ab6d59c61e6f7a8553140e320cce4e8065",
+    "npm-audit-production.json": "1cddce1f6013cb75267b65decedee91ef4abfa467e8404e2fa95777129027bbf",
+    "npm-audit.json": "eb8ec075979e93c41e633a6efcff4b832cb0c0ca30c653ba86a1d2722817a4da",
+    "software-verification.json": "bf9a1863597b1d2c05ff53fd40faff282569f51f1fd64c0a813726befe0ba0cf",
+    "zod-fixed-registry.json": "12e8be3bfedf4f80dd5aa83df0f66dcda0675614a558aa2817c7f550fc906a63",
+    "zod-latest-registry.json": "289de693881eea933e24ea80e7d26338c0be706012d958d18f365913c80dac61"
+  },
+  "evidenceHashVerifiedAt": "2026-10-24T13:28:21.602032+00:00"
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dearo · Browser visual QA</title>
+    <style>
+      body {
+        font: 14px system-ui;
+        background: #eef0f5;
+        color: #12151d;
+        margin: 20px;
+      }
+      header {
+        max-width: 850px;
+        margin: auto auto 16px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 0 8px;
+      }
+      p {
+        margin: 8px 0;
+        line-height: 1.4;
+      }
+      select {
+        padding: 8px;
+        margin-right: 10px;
+      }
+      iframe {
+        display: block;
+        background: white;
+        border: 1px solid #d2d6df;
+        border-radius: 18px;
+        margin: auto;
+        box-shadow: 0 8px 36px #12151d18;
+      }
+      label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>dearo · Browser visual QA</h1>
+      <p>
+        Actual React Native UI rendered on the web. Synthetic guests only.
+        Native services mocked. Not an iOS emulator.
+      </p>
+      <label
+        >Scenario
+        <select id="scenario">
+          <option>onboarding</option>
+          <option>invitation</option>
+          <option>guests</option>
+          <option>send</option>
+          <option>pending</option>
+          <option>summary</option>
+        </select></label
+      ><label
+        >Layout
+        <select id="size">
+          <option value="390,760">390 × 760</option>
+          <option value="390,568">390 × 568 compact</option>
+          <option value="320,568">320 × 568 narrow</option>
+          <option value="390,420">390 × 420 reduced height</option>
+        </select></label
+      >
+    </header>
+    <iframe
+      title="Dearo actual app UI"
+      id="app"
+      width="390"
+      height="760"
+      src="app.html?scenario=onboarding"
+    ></iframe>
+    <script>
+      const app = document.querySelector("#app");
+      document.querySelector("#scenario").onchange = (e) =>
+        (app.src = "app.html?scenario=" + e.target.value);
+      document.querySelector("#size").onchange = (e) => {
+        const [w, h] = e.target.value.split(",");
+        app.width = w;
+        app.height = h;
+      };
+    </script>
+  </body>
+</html>

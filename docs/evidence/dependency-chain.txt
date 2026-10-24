@@ -1,0 +1,13 @@
+dearo@0.1.0 (project root)
+├─┬ eslint-config-expo@58.0.4
+│ └─┬ eslint-plugin-react-hooks@7.1.1
+│   ├─┬ zod-validation-error@4.0.2
+│   │ └── zod@3.25.76 deduped
+│   └── zod@3.25.76
+└─┬ expo@58.0.19
+  └─┬ @expo/cli@58.1.15
+    ├─┬ @expo/code-signing-certificates@0.0.7
+    │ └── node-forge@1.4.0 deduped
+    ├── node-forge@1.4.0
+    └── zod@3.25.76 deduped
+

@@ -1,0 +1,8 @@
+{
+  "name": "node-forge",
+  "version": "1.4.0",
+  "dist-tags": {
+    "latest": "1.4.0"
+  },
+  "repository.url": "git+https://github.com/digitalbazaar/forge.git"
+}

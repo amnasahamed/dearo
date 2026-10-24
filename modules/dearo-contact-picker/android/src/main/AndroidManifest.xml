@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- No READ_CONTACTS, WRITE_CONTACTS, or broad storage permissions. -->
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.PICK" />
+      <data android:mimeType="vnd.android.cursor.dir/phone_v2" />
+    </intent>
+  </queries>
+</manifest>

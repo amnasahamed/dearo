@@ -1,0 +1,7 @@
+{
+  "name": "dearo-contact-picker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Permission-free, user-selected Android contact phone picker",
+  "main": "index.ts"
+}

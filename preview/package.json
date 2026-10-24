@@ -1,0 +1,13 @@
+{
+  "name": "dearo-visual-preview",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Development-only rendered UI preview. Not an iOS emulator or product web app.",
+  "dependencies": {
+    "react-native-web": "~0.21.4"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^19.3.0",
+    "@types/react-native-web": "^0.19.3"
+  }
+}
